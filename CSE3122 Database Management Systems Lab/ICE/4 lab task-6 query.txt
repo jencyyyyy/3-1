@@ -1,0 +1,4 @@
+1.
+SELECT DISTINCT customer.customer_name,customer.customer_city 
+FROM customer, borrower, loan
+WHERE (customer.customer_id = borrower.customer_id) AND (loan.loan_number = borrower.loan_number) AND (loan.branch_name='Perryridge');

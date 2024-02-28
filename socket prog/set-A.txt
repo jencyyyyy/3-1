@@ -1,0 +1,68 @@
+Set A commands
+---------------1--------------
+mysql -u root
+
+create database db;
+ 
+use db;
+
+create table Table1(
+    Roll varchar(5),
+    Name varchar(15),
+    Department varchar(5),
+    Balance decimal(8,2),
+    Grade varchar(2),
+    primary key(Roll));
+
+
+insert into Table1 values
+    -> ('10101','Bikash','CSE','220.25','A'),
+    -> ('10201','Josh','ICE','340.70','B+'),,
+    -> ('10301','Kevin','EEE','360.00','B-'),
+    -> ('10401','Ben','ICE','560.16','C'),
+    -> ('10102','Karim','CSE','255.98','B');
+
+
+alter table Table1 rename to Faculty;
+
+select name,roll
+from faculty
+where name LIKE "B%";
+
+
+select name, roll
+from faculty
+where balance<300;
+
+
+---------------2--------------
+create table CSE(
+    -> roll varchar(5),
+    -> HomeDistrict varchar(15),
+    -> primary key(roll));
+
+
+insert into cse values
+    ('10101','Rajshahi'),
+    ('10102','Khulna'),
+    ('10201','Dhaka'),
+    ('10301','Rajshahi'),
+    ('10401','Bogra');
+
+select faculty.name, cse.HomeDistrict
+from faculty left join cse
+on faculty.roll = cse.roll
+where faculty.Department = "CSE";
+
+---------------3--------------
+
+
+create table attention(
+    Roll varchar(5),
+    Name varchar(15),
+    Department varchar(5),
+    Balance decimal(8,2),
+    Grade varchar(2),
+    primary key(Roll));
+
+

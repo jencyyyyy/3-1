@@ -1,0 +1,42 @@
+b=8; % Number of bits and change it in question 1(d) as per bit level.i.e b=2, b=8,b=16
+fm=60;
+fs1=120;
+%N=120; % Number of samples in final signal.
+
+n=0:120;
+x=cos(2*pi*fm*n/fs1);
+
+x=sawtooth(2*pi*n/fs1);
+
+x=randn(1,fs1);
+
+x=x/max(abs(x));
+
+x(x>=1)=(1-eps);
+
+x(x<-1)=-1;
+
+% Quantize a signal to “b” bits.
+
+xq=floor((x+1)*2^(b-1));
+
+xq=xq/(2^(b-1)); % Signal is from 0 to 2 (quantized)
+
+xq=xq-(2^(b)-1)/2^(b); % Shift signal down (rounding)
+
+xe=x-xq; % Quantization error
+
+stem(x,'b');
+
+hold on;
+
+stem(xq,'r');
+
+hold on;
+
+stem(xe,'g');
+
+legend('Exact','Quantized','Error','Location','Southeast');
+
+title(sprintf('Signal, Quantized signal and Error for %g bits, %g quantization levels ',b,2^b));
+hold off

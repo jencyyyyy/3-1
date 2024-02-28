@@ -1,0 +1,61 @@
+en
+conf t
+vlan 101
+name IT
+exit
+vlan 102
+name HQ
+exit
+
+int range fa 0/1-5
+switchport mode access
+switchport access vlan 101
+exit
+
+int range fa 0/6-10
+switchport mode access
+switchport access vlan 102
+exit
+
+int fa 0/11
+switchport mode trunk
+exit
+
+int range fa 0/1-11
+no shutdown
+exit
+--------------------
+en
+conf t
+int fa0/0
+no shutdown
+
+
+int fa0/0.1
+encapsulation dot1Q 101
+ip address 192.168.22.1 255.255.255.0
+exit
+int fa0/0.2
+encapsulation dot1Q 102
+ip address 192.168.17.1 255.255.255.0
+exit
+-------------------------
+en
+conf t
+int fa0/1
+no shutdown
+
+
+int fa0/1.1
+encapsulation dot1Q 101
+ip address 192.168.22.1 255.255.255.0
+exit
+int fa0/1.2
+encapsulation dot1Q 102
+ip address 192.168.17.1 255.255.255.0
+exit
+
+
+
+
+

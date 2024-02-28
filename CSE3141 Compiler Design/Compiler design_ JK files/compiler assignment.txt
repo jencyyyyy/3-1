@@ -1,0 +1,8 @@
+Assignment
+
+For the SDD of Fig. 5.1, give annotated parse trees for the following expressions:
+a) (3+4)*(5+6)n
+b) 1*2*3*(4+5)n
+c) (9+8*(7+6)+5)*4n
+
+

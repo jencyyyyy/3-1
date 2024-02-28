@@ -1,0 +1,45 @@
+clc;
+clear all;
+
+%Original Signal
+t= -100:0.01:100;
+fm=0.02 % original samping frequency 
+x=cos(2*pi*t*fm);
+subplot(2,2,1);
+plot(t,x)
+xlabel('time(s)')
+ylabel('x(t)')
+title('Original Continuous Time Signal')
+
+%part 1 undersampling
+fs1=0.02; %fs1 <2fm undersampling
+n=-2:2;
+x1=cos(2*pi*fm*n/fs1);
+
+subplot(2,2,2);
+stem(n,x1)
+hold on
+subplot(2,2,2)
+plot(n,x1,':')
+xlabel('n')
+ylabel('x(n)')
+title('(UnderSampling fs1<2fm)')
+
+
+
+
+%part2 oversampling
+
+
+fs2=0.05; %fs3>2fm over sampling
+n2=-100:100;
+x3=cos(2*pi*fm*n2/fs2);
+
+subplot(2,2,4);
+stem(n2,x3)
+hold on
+subplot(2,2,4)
+plot(n2,x3,':')
+xlabel('n2')
+ylabel('x(n2)')
+title(' fs2> 2fm OverSampling')

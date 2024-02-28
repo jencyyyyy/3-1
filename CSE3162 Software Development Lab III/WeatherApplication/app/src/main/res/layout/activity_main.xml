@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityMainView"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mainDataCard"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="#F1F8F8"
+        app:cardCornerRadius="140dp"
+        app:layout_constraintCircleRadius="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iconForWeather"
+                android:layout_width="70dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:contentDescription="@string/icon"
+                app:layout_constraintDimensionRatio="h,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/weatherion" />
+
+            <TextView
+                android:id="@+id/showTemperatureView"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="2dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/_33_c"
+                android:textColor="#191818"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toStartOf="@+id/location"
+                app:layout_constraintHorizontal_bias="0.036"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iconForWeather" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="52dp"
+                android:layout_marginEnd="48dp"
+                android:text="@string/location"
+                android:textColor="#0091EA"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ConditionForWeatherView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/type_of_weather"
+                android:textColor="#0C0C0C"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/lastUpdated"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/showTemperatureView" />
+
+            <EditText
+                android:id="@+id/enterLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="72dp"
+                android:autofillHints="@string/enter_the_location"
+                android:ems="12"
+                android:hint="@string/enter_the_location"
+                android:inputType="textPersonName"
+                android:minHeight="60dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textColorHint="@color/searchButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iconForWeather" />
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="200dp"
+                android:background="@color/searchButton"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/search"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@android:style/Widget.ProgressBar.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchButton" />
+
+            <TextView
+                android:id="@+id/MessageError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/error_message"
+                android:textColor="#5E5A5A"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchButton" />
+
+            <TextView
+                android:id="@+id/lastUpdated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="88dp"
+                android:layout_marginEnd="44dp"
+                android:text="lastupdated"
+                android:textColor="#0C0C0C"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/sevenDayCard"
+        android:layout_width="360dp"
+        android:layout_height="400dp"
+        app:cardBackgroundColor="#F1F8F8"
+        app:cardCornerRadius="140dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainDataCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/sevenDayForecasr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/_7_days_forecast"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textSize"
+                android:layout_marginStart="95dp"
+                android:layout_marginTop="25dp"
+                android:text="Date"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sevenDayForecasr" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textSize"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="25dp"
+                android:text="Temperature"
+                android:textColor="#000000"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/sevenDayForecasr" />
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="52dp"
+                android:text="Image"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sevenDayForecasr" />
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="12dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sevenDayForecasr">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/table_margin_bottom">
+
+                    <TextView
+                        android:id="@+id/day0"
+                        android:layout_width="@dimen/length_date"
+                        android:layout_height="27dp"
+                        android:text="Date"
+                        android:textColor="@color/black"
+
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/type0"
+                        android:layout_width="@dimen/length_type"
+                        android:layout_height="27dp"
+                        android:text="type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <ImageView
+                        android:id="@+id/imageView0"
+                        android:layout_width="@dimen/length_image"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/weatherion" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/table_margin_bottom">
+
+                    <TextView
+                        android:id="@+id/day1"
+                        android:layout_width="@dimen/length_date"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/type1"
+                        android:layout_width="@dimen/length_type"
+                        android:layout_height="27dp"
+                        android:text="type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="@dimen/length_image"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/weatherion" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/table_margin_bottom">
+                    >
+
+                    <TextView
+                        android:id="@+id/day2"
+                        android:layout_width="@dimen/length_date"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/type2"
+                        android:layout_width="@dimen/length_type"
+                        android:layout_height="27dp"
+                        android:text="type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="@dimen/length_image"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/weatherion" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/table_margin_bottom">
+                    >
+
+                    <TextView
+                        android:id="@+id/day3"
+                        android:layout_width="@dimen/length_date"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/type3"
+                        android:layout_width="@dimen/length_type"
+                        android:layout_height="27dp"
+                        android:text="type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="@dimen/length_image"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/weatherion" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/table_margin_bottom">
+                    >
+
+                    <TextView
+                        android:id="@+id/day4"
+                        android:layout_width="@dimen/length_date"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/type4"
+                        android:layout_width="@dimen/length_type"
+                        android:layout_height="27dp"
+                        android:text="type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="@dimen/length_image"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/weatherion" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/table_margin_bottom">
+                    >
+
+                    <TextView
+                        android:id="@+id/day5"
+                        android:layout_width="@dimen/length_date"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/type5"
+                        android:layout_width="@dimen/length_type"
+                        android:layout_height="27dp"
+                        android:text="type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="@dimen/length_image"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/weatherion" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/table_margin_bottom">
+                    >
+
+                    <TextView
+                        android:id="@+id/day6"
+                        android:layout_width="@dimen/length_date"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/type6"
+                        android:layout_width="@dimen/length_type"
+                        android:layout_height="27dp"
+                        android:text="type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize" />
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="@dimen/length_image"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/weatherion" />
+                </TableRow>
+            </TableLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

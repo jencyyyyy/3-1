@@ -1,0 +1,125 @@
+
+Setting environment for using XAMPP for Windows.
+TERESA@MSI c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.25-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| seta               |
+| setb               |
+| test               |
++--------------------+
+7 rows in set (0.099 sec)
+
+MariaDB [(none)]> use setA
+Database changed
+MariaDB [setA]> show tables;
++----------------+
+| Tables_in_seta |
++----------------+
+| attention      |
+| cse            |
+| faculty        |
++----------------+
+3 rows in set (0.002 sec)
+
+MariaDB [setA]> alter table faculty
+    -> add Grade_points decimal(3,2);
+Query OK, 0 rows affected (0.268 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [setA]> describe faculty;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| Roll         | varchar(5)   | NO   | PRI | NULL    |       |
+| Name         | varchar(15)  | YES  |     | NULL    |       |
+| Department   | varchar(5)   | YES  |     | NULL    |       |
+| Balance      | decimal(8,2) | YES  |     | NULL    |       |
+| Grade        | varchar(2)   | YES  |     | NULL    |       |
+| Grade_points | decimal(3,2) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+6 rows in set (0.025 sec)
+
+MariaDB [setA]> select * from faculty
+    -> ;
++-------+--------+------------+---------+-------+--------------+
+| Roll  | Name   | Department | Balance | Grade | Grade_points |
++-------+--------+------------+---------+-------+--------------+
+| 10101 | Bikash | CSE        |  220.25 | A     |         NULL |
+| 10102 | Karim  | CSE        |  255.98 | B     |         NULL |
+| 10131 | pqr    | ICE        |  250.44 | C     |         NULL |
+| 10201 | Josh   | ICE        |  340.70 | B+    |         NULL |
+| 10301 | Kevin  | EEE        |  360.00 | B-    |         NULL |
+| 10401 | Ben    | ICE        |  560.16 | C     |         NULL |
++-------+--------+------------+---------+-------+--------------+
+6 rows in set (0.278 sec)
+
+
+
+MariaDB [setA]> update faculty set grade_points = '3.75'
+    -> where grade = "A";
+Query OK, 1 row affected (0.222 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [setA]> select * from faculty;
++-------+--------+------------+---------+-------+--------------+
+| Roll  | Name   | Department | Balance | Grade | Grade_points |
++-------+--------+------------+---------+-------+--------------+
+| 10101 | Bikash | CSE        |  220.25 | A     |         3.75 |
+| 10102 | Karim  | CSE        |  255.98 | B     |         NULL |
+| 10131 | pqr    | ICE        |  250.44 | C     |         NULL |
+| 10201 | Josh   | ICE        |  340.70 | B+    |         NULL |
+| 10301 | Kevin  | EEE        |  360.00 | B-    |         NULL |
+| 10401 | Ben    | ICE        |  560.16 | C     |         NULL |
++-------+--------+------------+---------+-------+--------------+
+6 rows in set (0.001 sec)
+
+MariaDB [setA]> update faculty set grade_points = '3.00'
+    -> where grade = "B";
+Query OK, 1 row affected (0.148 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [setA]> update faculty set grade_points = '2.25'
+    -> where grade = "C";
+Query OK, 2 rows affected (0.063 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [setA]> update faculty set grade_points = '3.25'
+    -> where grade = "B+";
+Query OK, 1 row affected (0.131 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [setA]> update faculty set grade_points = '2.75'
+    -> where grade = "B-";
+Query OK, 1 row affected (0.088 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [setA]> select * from faculty;
++-------+--------+------------+---------+-------+--------------+
+| Roll  | Name   | Department | Balance | Grade | Grade_points |
++-------+--------+------------+---------+-------+--------------+
+| 10101 | Bikash | CSE        |  220.25 | A     |         3.75 |
+| 10102 | Karim  | CSE        |  255.98 | B     |         3.00 |
+| 10131 | pqr    | ICE        |  250.44 | C     |         2.25 |
+| 10201 | Josh   | ICE        |  340.70 | B+    |         3.25 |
+| 10301 | Kevin  | EEE        |  360.00 | B-    |         2.75 |
+| 10401 | Ben    | ICE        |  560.16 | C     |         2.25 |
++-------+--------+------------+---------+-------+--------------+
+6 rows in set (0.001 sec)
+
+MariaDB [setA]>

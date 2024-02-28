@@ -1,0 +1,8 @@
+
+DBMS Lab - Xampp
+DSP Lab - Matlab
+CD Lab - Codeblocks
+CN lab - Cisco packet tracer
+SDL3 - Android Studio
+
+

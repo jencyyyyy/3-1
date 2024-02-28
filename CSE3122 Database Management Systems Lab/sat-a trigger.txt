@@ -1,0 +1,13 @@
+DELIMITER //
+
+CREATE TRIGGER after_insert_faculty_grade_check
+AFTER INSERT ON faculty FOR EACH ROW
+    BEGIN
+       	IF NEW.grade IN ('B-','C+','C','D','F','I')
+           	THEN 
+           		INSERT INTO attention VALUES
+               	(new.roll, new.name, new.department, new.balance, new.grade);
+        END IF;
+END //
+
+DELIMITER ;

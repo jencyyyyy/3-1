@@ -1,0 +1,189 @@
+
+Setting environment for using XAMPP for Windows.
+TERESA@MSI d:\xampp
+# mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 834
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database setB;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use setB;
+Database changed
+MariaDB [setB]> create table table1(
+      Roll varchar(5),
+       Name varchar(15),
+         Department varchar(5),
+          Balance decimal(8,2),
+        Grade varchar(2),
+          primary key(Roll));
+Query OK, 0 rows affected (0.641 sec)
+
+MariaDB [setB]> alter table table1 rename to Engineering;
+Query OK, 0 rows affected (0.351 sec)
+
+MariaDB [setB]> describe engineering;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Roll       | varchar(5)   | NO   | PRI | NULL    |       |
+| Name       | varchar(15)  | YES  |     | NULL    |       |
+| Department | varchar(5)   | YES  |     | NULL    |       |
+| Balance    | decimal(8,2) | YES  |     | NULL    |       |
+| Grade      | varchar(2)   | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.128 sec)
+
+
+MariaDB [setB]> insert into engineering values
+          ('10101','Bikash','CSE','220.25','A'),
+         ('10201','Josh','ICE','340.70','B+'),
+          ('10301','Kevin','EEE','360.00','B-'),
+          ('10401','Ben','ICE','560.16','C'),
+          ('10102','Karim','CSE','255.98','B');
+Query OK, 5 rows affected (0.285 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [setB]> select department, sum(Balance) as total_Balance
+     from engineering
+     group by department;
++------------+---------------+
+| department | total_Balance |
++------------+---------------+
+| CSE        |        476.23 |
+| EEE        |        360.00 |
+| ICE        |        900.86 |
++------------+---------------+
+3 rows in set (0.036 sec)
+
+MariaDB [setB]> update engineering set
+     balance = balance * 1.1
+     where department != "CSE";
+Query OK, 3 rows affected, 1 warning (0.255 sec)
+Rows matched: 3  Changed: 3  Warnings: 1
+
+MariaDB [setB]> select * from engineering;
++-------+--------+------------+---------+-------+
+| Roll  | Name   | Department | Balance | Grade |
++-------+--------+------------+---------+-------+
+| 10101 | Bikash | CSE        |  220.25 | A     |
+| 10102 | Karim  | CSE        |  255.98 | B     |
+| 10201 | Josh   | ICE        |  374.77 | B+    |
+| 10301 | Kevin  | EEE        |  396.00 | B-    |
+| 10401 | Ben    | ICE        |  616.18 | C     |
++-------+--------+------------+---------+-------+
+5 rows in set (0.000 sec)
+
+
+
+
+MariaDB [setB]> select balance
+     from engineering
+     order by balance desc
+     limit 1 ;
++---------+
+| balance |
++---------+
+|  616.18 |
++---------+
+1 row in set (0.102 sec)
+
+
+
+MariaDB [setB]> create table Account as
+   ( select roll as Account_no,
+    balance
+    from engineering);
+Query OK, 5 rows affected (0.860 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [setB]> describe account;
+    
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Account_no | varchar(5)   | NO   |     | NULL    |       |
+| balance    | decimal(8,2) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+2 rows in set (0.024 sec)
+
+MariaDB [setB]> select * from Account;
++------------+---------+
+| Account_no | balance |
++------------+---------+
+| 10101      |  220.25 |
+| 10102      |  255.98 |
+| 10201      |  374.77 |
+| 10301      |  396.00 |
+| 10401      |  616.18 |
++------------+---------+
+5 rows in set (0.029 sec)
+
+
+
+MariaDB [setB]> SELECT Name,engineering.Balance
+    -> From engineering left join account
+    -> on engineering.roll = account.Account_no
+    -> where 1 = (SELECT COUNT(DISTINCT Balance)
+    -> from account
+    -> where engineering.balance<=account.Balance);
++------+---------+
+| Name | Balance |
++------+---------+
+| Ben  |  616.18 |
++------+---------+
+1 row in set (0.001 sec)
+
+
+
+
+MariaDB [setB]> create table Attention as
+    select * from engineering where 0=1;
+Query OK, 0 rows affected (1.145 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+MariaDB [setB]> describe attention;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Roll       | varchar(5)   | NO   |     | NULL    |       |
+| Name       | varchar(15)  | YES  |     | NULL    |       |
+| Department | varchar(5)   | YES  |     | NULL    |       |
+| Balance    | decimal(8,2) | YES  |     | NULL    |       |
+| Grade      | varchar(2)   | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.021 sec)
+
+MariaDB [setB]> DELIMITER //
+MariaDB [setB]>
+MariaDB [setB]> CREATE TRIGGER after_delete_engineering_grade_check
+     AFTER DELETE ON engineering FOR EACH ROW
+        BEGIN
+            IF OLD.grade = "B"
+                THEN
+                INSERT INTO attention VALUES
+                    (old.roll, old.name, old.department, old.balance, old.grade);
+             END IF;
+     END //
+Query OK, 0 rows affected (0.216 sec)
+
+
+
+MariaDB [setB]> delete from engineering where grade = "B";
+Query OK, 1 row affected (0.079 sec)
+
+MariaDB [setB]> select * from attention;
++-------+-------+------------+---------+-------+
+| Roll  | Name  | Department | Balance | Grade |
++-------+-------+------------+---------+-------+
+| 10102 | Karim | CSE        |  255.98 | B     |
++-------+-------+------------+---------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [setB]>

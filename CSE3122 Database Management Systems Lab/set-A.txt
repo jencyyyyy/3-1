@@ -1,0 +1,218 @@
+
+Setting environment for using XAMPP for Windows.
+TERESA@MSI d:\xampp
+# mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 24
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database db;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use db;
+Database changed
+MariaDB [db]> create table Table1(
+    Roll varchar(5),
+   Name varchar(15),
+    Department varchar(5),
+     Balance decimal(8,2),
+    Grade varchar(2),
+     primary key(Roll));
+Query OK, 0 rows affected (0.447 sec)
+
+MariaDB [db]> describe Table1;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Roll       | varchar(5)   | NO   | PRI | NULL    |       |
+| Name       | varchar(15)  | YES  |     | NULL    |       |
+| Department | varchar(5)   | YES  |     | NULL    |       |
+| Balance    | decimal(8,2) | YES  |     | NULL    |       |
+| Grade      | varchar(2)   | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.037 sec)
+
+MariaDB [db]> alter table Table1 rename to Faculty;
+Query OK, 0 rows affected (0.335 sec)
+
+MariaDB [db]> describe Faculty;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Roll       | varchar(5)   | NO   | PRI | NULL    |       |
+| Name       | varchar(15)  | YES  |     | NULL    |       |
+| Department | varchar(5)   | YES  |     | NULL    |       |
+| Balance    | decimal(8,2) | YES  |     | NULL    |       |
+| Grade      | varchar(2)   | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.011 sec)
+
+MariaDB [db]> show tables;
++--------------+
+| Tables_in_db |
++--------------+
+| faculty      |
++--------------+
+1 row in set (0.001 sec)
+
+
+MariaDB [db]> 
+	insert into faculty values
+     	('10101','Bikash','CSE','220.25','A'),
+    ('10201','Josh','ICE','340.70','B+'),
+     ('10301','Kevin','EEE','360.00','B-'),
+     ('10401','Ben','ICE','560.16','C'),
+     ('10102','Karim','CSE','255.98','B');
+Query OK, 5 rows affected (0.092 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [db]> select * from faculty;
++-------+--------+------------+---------+-------+
+| Roll  | Name   | Department | Balance | Grade |
++-------+--------+------------+---------+-------+
+| 10101 | Bikash | CSE        |  220.25 | A     |
+| 10102 | Karim  | CSE        |  255.98 | B     |
+| 10201 | Josh   | ICE        |  340.70 | B+    |
+| 10301 | Kevin  | EEE        |  360.00 | B-    |
+| 10401 | Ben    | ICE        |  560.16 | C     |
++-------+--------+------------+---------+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [db]> select name,roll
+    from faculty
+     where name LIKE "B%";
++--------+-------+
+| name   | roll  |
++--------+-------+
+| Bikash | 10101 |
+| Ben    | 10401 |
++--------+-------+
+2 rows in set (0.001 sec)
+
+MariaDB [db]> select name, roll
+    from faculty
+    where balance<300;
++--------+-------+
+| name   | roll  |
++--------+-------+
+| Bikash | 10101 |
+| Karim  | 10102 |
++--------+-------+
+2 rows in set (0.037 sec)
+
+MariaDB [db]> create table CSE(
+    roll varchar(5),
+     HomeDistrict varchar(15),
+     primary key(roll));
+Query OK, 0 rows affected (0.560 sec)
+
+MariaDB [db]> show tables;
++--------------+
+| Tables_in_db |
++--------------+
+| cse          |
+| faculty      |
++--------------+
+2 rows in set (0.001 sec)
+
+MariaDB [db]> describe cse
+    -> ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| roll         | varchar(5)  | NO   | PRI | NULL    |       |
+| HomeDistrict | varchar(15) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.035 sec)
+
+MariaDB [db]> insert into cse values
+    ('10101','Rajshahi'),
+     ('10102','Khulna'),
+     ('10201','Dhaka'),
+     ('10301','Rajshahi'),
+    ('10401','Bogra');
+Query OK, 5 rows affected (0.078 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [db]> select * from cse;
++-------+--------------+
+| roll  | HomeDistrict |
++-------+--------------+
+| 10101 | Rajshahi     |
+| 10102 | Khulna       |
+| 10201 | Dhaka        |
+| 10301 | Rajshahi     |
+| 10401 | Bogra        |
++-------+--------------+
+5 rows in set (0.000 sec)
+
+
+MariaDB [db]> select faculty.name, cse.HomeDistrict
+    from faculty left join cse
+     on faculty.roll = cse.roll
+     where faculty.Department = "CSE";
++--------+--------------+
+| name   | HomeDistrict |
++--------+--------------+
+| Bikash | Rajshahi     |
+| Karim  | Khulna       |
++--------+--------------+
+2 rows in set (0.025 sec)
+
+
+MariaDB [db]> show triggers;
+Empty set (0.013 sec)
+
+MariaDB [db]> show tables;
++--------------+
+| Tables_in_db |
++--------------+
+| cse          |
+| faculty      |
++--------------+
+2 rows in set (0.001 sec)
+
+
+
+
+MariaDB [db]> create table attention as
+     select * from faculty
+     where 0=1;
+Query OK, 0 rows affected (0.341 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [db]> describe attention;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Roll       | varchar(5)   | NO   |     | NULL    |       |
+| Name       | varchar(15)  | YES  |     | NULL    |       |
+| Department | varchar(5)   | YES  |     | NULL    |       |
+| Balance    | decimal(8,2) | YES  |     | NULL    |       |
+| Grade      | varchar(2)   | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.011 sec)
+
+MariaDB [db]> select * from attention;
+Empty set (0.000 sec)
+
+MariaDB [db]> delimiter //
+MariaDB [db]> create trigger toAttention
+    -> after insert
+    -> on faculty for EACH ROW
+    -> begin
+    -> If new.grade IN ('B-','C+','C','D','F','I')
+    -> THEN INSERT INTO attention values
+    -> (new.roll, new.name,new.department,new.balance, new.grade);
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.170 sec)
+
+MariaDB [db]> insert into faculty values
+    ('10131','pqr','ICE','250.44','C');
+
+

@@ -1,0 +1,1 @@
+Desifgn a lexical analyzer that with take input from a file and read the identifiers, constants and keywords.

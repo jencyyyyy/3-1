@@ -1,0 +1,10 @@
+Scanning: https://youtu.be/b-MXQ4qVoFU
+Regular expression: https://youtu.be/Im8ir375x3A
+Regular definition: https://youtu.be/NMcr6hH7AvY
+Finite automata: https://youtu.be/7DD2qEYNS3Y
+DFA: https://youtu.be/mJIoLbm8jbA
+NFA: https://youtu.be/JXOEb_kwAIA
+Regular Expression to nfa: https://youtu.be/2TTDiUISu4o
+Epsilon-NFA to DFA: https://youtu.be/4-N3GfHb134
+NFA to DFA: https://youtu.be/CvFn7Hohgt4
+Ambiguous Grammar:https://youtu.be/y4ZZYqWJ9po

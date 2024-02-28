@@ -1,0 +1,287 @@
+
+Setting environment for using XAMPP for Windows.
+TERESA@MSI c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.25-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database LabFinal;
+Query OK, 1 row affected (0.016 sec)
+
+MariaDB [(none)]> use LabFinal;
+Database changed
+MariaDB [LabFinal]> create table table1(
+    -> Roll varchar(5),
+    -> Name varchar(15),
+    -> Department varchar(3),
+    -> Balance decimal(10,2),
+    -> Grade varchar(2),
+    -> primary key(roll)
+    -> );
+Query OK, 0 rows affected (0.440 sec)
+
+MariaDB [LabFinal]> describe table1;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| Roll       | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(15)   | YES  |     | NULL    |       |
+| Department | varchar(3)    | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| Grade      | varchar(2)    | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.067 sec)
+
+MariaDB [LabFinal]> alter table table1 rename to Science;
+Query OK, 0 rows affected (0.367 sec)
+
+MariaDB [LabFinal]> describe Science;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| Roll       | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(15)   | YES  |     | NULL    |       |
+| Department | varchar(3)    | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| Grade      | varchar(2)    | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.044 sec)
+
+MariaDB [LabFinal]> insert into Science values
+    -> ('10101','Bikash','CSE','220.25','A'),
+    ->     ('10201','Josh','ICE','340.70','B+'),
+    ->      ('10301','Kevin','EEE','360.00','B-'),
+    ->      ('10401','Ben','ICE','560.16','C'),
+    -> ('10102','Karim','CSE','255.98','B');
+Query OK, 5 rows affected (0.195 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [LabFinal]> select * from science;
++-------+--------+------------+---------+-------+
+| Roll  | Name   | Department | Balance | Grade |
++-------+--------+------------+---------+-------+
+| 10101 | Bikash | CSE        |  220.25 | A     |
+| 10102 | Karim  | CSE        |  255.98 | B     |
+| 10201 | Josh   | ICE        |  340.70 | B+    |
+| 10301 | Kevin  | EEE        |  360.00 | B-    |
+| 10401 | Ben    | ICE        |  560.16 | C     |
++-------+--------+------------+---------+-------+
+5 rows in set (0.025 sec)
+
+MariaDB [LabFinal]> select department, avg(balance)
+    -> from Science
+    -> group by department;
++------------+--------------+
+| department | avg(balance) |
++------------+--------------+
+| CSE        |   238.115000 |
+| EEE        |   360.000000 |
+| ICE        |   450.430000 |
++------------+--------------+
+3 rows in set (0.066 sec)
+
+MariaDB [LabFinal]> update Science set
+    -> balance = balance * 1.1
+    -> ;
+Query OK, 5 rows affected, 3 warnings (0.175 sec)
+Rows matched: 5  Changed: 5  Warnings: 3
+
+MariaDB [LabFinal]> select * from science;
++-------+--------+------------+---------+-------+
+| Roll  | Name   | Department | Balance | Grade |
++-------+--------+------------+---------+-------+
+| 10101 | Bikash | CSE        |  242.28 | A     |
+| 10102 | Karim  | CSE        |  281.58 | B     |
+| 10201 | Josh   | ICE        |  374.77 | B+    |
+| 10301 | Kevin  | EEE        |  396.00 | B-    |
+| 10401 | Ben    | ICE        |  616.18 | C     |
++-------+--------+------------+---------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [LabFinal]> create table Account(
+    -> Account_id int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [LabFinal]> create table Account(
+    -> Account_id int,
+    -> Name varchar(15),
+    -> primary key(Account_id)
+    -> );
+Query OK, 0 rows affected (0.623 sec)
+
+MariaDB [LabFinal]> describe Account;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Account_id | int(11)     | NO   | PRI | NULL    |       |
+| Name       | varchar(15) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+2 rows in set (0.025 sec)
+
+MariaDB [LabFinal]> insert into Account values
+    -> ('17', 'Bikash'),
+    -> ('21', 'Josh'),
+    -> ('25', 'Kevin'),
+    -> ('78', 'Ben'),
+    -> ('96', 'Karim');
+Query OK, 5 rows affected (0.074 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [LabFinal]> select * from Account;
++------------+--------+
+| Account_id | Name   |
++------------+--------+
+|         17 | Bikash |
+|         21 | Josh   |
+|         25 | Kevin  |
+|         78 | Ben    |
+|         96 | Karim  |
++------------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [LabFinal]> create table Borrower(
+    -> Loan_id int,
+    -> Name varchar(15),
+    -> primary key(Loan_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 4
+MariaDB [LabFinal]> create table Borrower(
+    -> Loan_id int,
+    -> Name varchar(15),
+    -> primary key(Loan_id));
+Query OK, 0 rows affected (0.517 sec)
+
+MariaDB [LabFinal]> insert into Borrower values
+    -> ('103','Karim'),
+    -> ('106','Badol'),
+    -> ('112','Jamal'),
+    -> ('110','Bikash'),
+    -> ('109','Rahim');
+Query OK, 5 rows affected (0.072 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [LabFinal]> select * from Borrower;
++---------+--------+
+| Loan_id | Name   |
++---------+--------+
+|     103 | Karim  |
+|     106 | Badol  |
+|     109 | Rahim  |
+|     110 | Bikash |
+|     112 | Jamal  |
++---------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [LabFinal]> select name
+    -> from Account, Borrower
+    -> ;
+ERROR 1052 (23000): Column 'name' in field list is ambiguous
+MariaDB [LabFinal]> select name from Account union
+    -> select name from Borrower;
++--------+
+| name   |
++--------+
+| Bikash |
+| Josh   |
+| Kevin  |
+| Ben    |
+| Karim  |
+| Badol  |
+| Rahim  |
+| Jamal  |
++--------+
+8 rows in set (0.018 sec)
+
+MariaDB [LabFinal]> delimiter //
+MariaDB [LabFinal]> ;
+    -> ;
+    -> //
+ERROR 1065 (42000): Query was empty
+MariaDB [LabFinal]>
+MariaDB [LabFinal]>
+MariaDB [LabFinal]> create table Attention as
+    -> select * from Science where 0=1;
+    -> //
+Query OK, 0 rows affected (0.660 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LabFinal]> describe attention;
+    -> exit;
+    ->
+    -> exit;;
+    -> //
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| Roll       | varchar(5)    | NO   |     | NULL    |       |
+| Name       | varchar(15)   | YES  |     | NULL    |       |
+| Department | varchar(3)    | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| Grade      | varchar(2)    | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.010 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'exit;
+
+exit' at line 1
+MariaDB [LabFinal]> //
+ERROR: No query specified
+
+MariaDB [LabFinal]> delimiter //
+MariaDB [LabFinal]> create trigger
+    -> after_update_Science_balance_check
+    -> AFTER UPDATE ON Science FOR EACH ROW
+    -> BEGIN
+    -> IF NEW.balance > 1000
+    -> Then
+    -> INSERT INTO attention VALUES
+    -> (old.roll, old.name, old.department, new.balance, old.grade);
+    -> END IF;
+    -> END //
+Query OK, 0 rows affected (0.260 sec)
+
+MariaDB [LabFinal]> update
+
+
+
+
+
+
+;
+    -> ;
+    -> //
+ERROR 1065 (42000): Query was empty
+MariaDB [LabFinal]> update Science
+    -> Set balance = '5000'
+    -> Where roll = 10201;
+    -> //
+Query OK, 1 row affected (0.128 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [LabFinal]> select * from attention;
+    -> //
++-------+------+------------+---------+-------+
+| Roll  | Name | Department | Balance | Grade |
++-------+------+------------+---------+-------+
+| 10201 | Josh | ICE        | 5000.00 | B+    |
++-------+------+------------+---------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [LabFinal]> select * from Science;
+    -> //
++-------+--------+------------+---------+-------+
+| Roll  | Name   | Department | Balance | Grade |
++-------+--------+------------+---------+-------+
+| 10101 | Bikash | CSE        |  242.28 | A     |
+| 10102 | Karim  | CSE        |  281.58 | B     |
+| 10201 | Josh   | ICE        | 5000.00 | B+    |
+| 10301 | Kevin  | EEE        |  396.00 | B-    |
+| 10401 | Ben    | ICE        |  616.18 | C     |
++-------+--------+------------+---------+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [LabFinal]>

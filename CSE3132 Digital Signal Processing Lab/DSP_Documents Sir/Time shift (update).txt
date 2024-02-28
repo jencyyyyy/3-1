@@ -1,0 +1,68 @@
+# 1.
+
+clc, clear all, close all;
+x=rand(1,21);
+n=0:20;
+k=0:20;
+w=(pi/20)*k;
+X=x*(exp(-1i*pi/500)).^(n'*k);
+y=x;
+m=n+2;
+Y=y*(exp(-1i*pi/500)).^(m'*k);
+Y1=(exp(-1i*2).^w).*X;
+subplot(2,2,1);
+plot(n,abs(fftshift(X)));
+subplot(2,2,2);
+plot(n,abs(fftshift(Y)));
+
+
+OR
+
+# 2.
+
+n = 1:5;
+
+x = sin(n);
+
+l = -2;
+
+w = 2*pi/N;
+
+x1 = x.*exp(-1i*w*l*5);
+
+N = length(x1);
+
+f = fft(x1,N);
+
+subplot(2,1,1)
+
+stem(f);
+
+N1 = length(x);
+
+f1 = fft(x,N1);
+
+[y n1]=sigshift1(f1,n,1);
+
+subplot(2,1,2)
+
+stem(y);
+
+
+# 3.
+
+n=0:4;
+x=[0 1 2 3 3];
+subplot(2,1,1);
+stem(n,x);
+xlabel('Time Sample');
+ylabel('Amplitude');
+title('Original sequence');
+axis([-2 8 0 4]);
+m=n-2;
+subplot(2,1,2);
+stem(m,x);
+xlabel('Time Sample');
+ylabel('Amplitude');
+title('Time shifted signal');
+axis([-2 8 0 4]);

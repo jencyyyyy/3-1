@@ -1,0 +1,81 @@
+--------------1------------
+
+mysql -u root
+
+create database setB;
+
+use setB;
+
+
+
+create table table1(
+    Roll varchar(5),
+    Name varchar(15),
+    Department varchar(5),
+    Balance decimal(8,2),
+    Grade varchar(2),
+    primary key(Roll));
+
+
+
+insert into table1 values
+    ('10101','Bikash','CSE','220.25','A'),
+    ('10201','Josh','ICE','340.70','B+'),
+    ('10301','Kevin','EEE','360.00','B-'),
+    ('10401','Ben','ICE','560.16','C'),
+    ('10102','Karim','CSE','255.98','B');
+
+
+
+
+
+alter table table1 rename to Engineering;
+
+
+
+
+select department, sum(Balance)
+from engineering
+group by department;
+
+
+
+update engineering set
+balance = balance * 1.1
+where department != "CSE";
+
+
+---------------------2-------------
+create table Account (
+    Account_no varchar(5),
+    Balance decimal(8,2),
+    primary key(Roll));
+
+
+
+
+insert into Account values
+    ('10101','220.25'),
+    ('10201','340.70'),
+    ('10301','360.00'),
+    ('10401','560.16'),
+    ('10102','255.98');
+
+
+
+SELECT Name,engineering.Balance
+From engineering left join account
+on engineering.roll = account.Account_no
+where 1 = (SELECT COUNT(DISTINCT Balance)
+from account
+where engineering.balance<=account.Balance);
+
+
+
+-----------------------3----------------
+
+
+
+DELETE * FROM faculty WHERE Grade = 'B';
+
+

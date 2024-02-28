@@ -1,0 +1,14 @@
+n=input('ENTER THE TIME SAMPLE RANGE');
+x=input('Enter the corresponding amplitudes');
+subplot(2,1,1);
+stem(n,x);
+xlabel('Time sample');
+ylabel('AMPLITUDE');
+title('ORIGINAL SEQUENCE');
+n2=-fliplr(n);
+x2=fliplr(x);
+subplot(2,1,2);
+stem(n2,x2);
+xlabel('Time sample');
+ylabel('AMPLITUDE');
+title('TIME REVERSED SEQUENCE');

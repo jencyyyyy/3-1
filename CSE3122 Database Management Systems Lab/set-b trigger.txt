@@ -1,0 +1,13 @@
+DELIMITER //
+
+CREATE TRIGGER after_delete_engineering_grade_check
+AFTER DELETE ON engineering FOR EACH ROW
+    BEGIN
+       	IF OLD.grade = "B"
+           	THEN 
+           		INSERT INTO attention VALUES
+               	(old.roll, old.name, old.department, old.balance, old.grade);
+        END IF;
+END //
+
+DELIMITER ;
